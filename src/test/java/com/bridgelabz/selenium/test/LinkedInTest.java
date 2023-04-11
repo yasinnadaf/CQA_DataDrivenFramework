@@ -1,6 +1,10 @@
 package com.bridgelabz.selenium.test;
 
 import com.bridgelabz.selenium.base.BaseClass;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Story;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import pages.Dashboard;
@@ -19,10 +23,13 @@ public class LinkedInTest extends BaseClass {
         dashboard = new Dashboard(driver);
     }
 
-    @Test(dataProvider = "testData", dataProviderClass = DataProviderLogic.class)
+    @Test(description = "Login to linkedin" ,dataProvider = "testData", dataProviderClass = DataProviderLogic.class)
+    @Severity(SeverityLevel.CRITICAL)
+    @Epic("functional testing scenario")
+    @Story("Login")
     public void loginToInstagram(String userName, String Password) throws InterruptedException {
         String loginPageTitle = loginPage.loginToInsta(userName,Password);
-        Assert.assertEquals("(9) Feed | LinkedIn",loginPageTitle);
+        Assert.assertEquals("(15) Feed | LinkedIn",loginPageTitle);
     }
     @AfterMethod
     public void browserClose(){
