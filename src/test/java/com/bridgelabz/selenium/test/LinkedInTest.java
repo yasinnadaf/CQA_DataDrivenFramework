@@ -1,6 +1,7 @@
 package com.bridgelabz.selenium.test;
 
 import com.bridgelabz.selenium.base.BaseClass;
+import com.bridgelabz.selenium.base.testnglisteners.ITestListeners;
 import com.relevantcodes.extentreports.LogStatus;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Severity;
@@ -10,18 +11,21 @@ import org.testng.Assert;
 import org.testng.annotations.*;
 import pages.Dashboard;
 import pages.LoginPage;
+import pages.SignUpPage;
 import readexcel.DataProviderLogic;
 
-
+@Listeners (ITestListeners.class)
 public class LinkedInTest extends BaseClass {
     LoginPage loginPage;
     Dashboard dashboard;
+    SignUpPage signUp;
     @BeforeMethod
     @Parameters("browserName")
     public void setUp(@Optional ("chrome") String browser){
         initialization(browser);
         loginPage = new LoginPage(driver);
         dashboard = new Dashboard(driver);
+        signUp = new SignUpPage(driver);
         test.log(LogStatus.PASS, "setUp");
     }
 
@@ -37,9 +41,14 @@ public class LinkedInTest extends BaseClass {
         else {
             test.log(LogStatus.FAIL, "loginToLinkedin");
         }
-        Assert.assertEquals("(15) Feed | LinkedIn",loginPageTitle);
+        Assert.assertEquals("LinkedIn",loginPageTitle);
         test.log(LogStatus.PASS, "setUp");
     }
+    @Test
+    public void registrationToLinkedin(){
+        signUp.gotoSignUp();
+    }
+
     @AfterMethod
     public void browserClose(){
         test.log(LogStatus.PASS, "setUp");
